@@ -66,26 +66,35 @@ module recoil_pad_cushion(){
             intersection(){
                 recoil_pad_outline(thickness=17/2);
                 
-                if(1)
+                if(0)
                 color("green")
                 scale([2.1,1,1])
                 translate([0,0,0])
                 rotate([90,0,0])
                 cylinder(d=20, h=200, center=true, $fn=50);
+                
+                if(1)
+                color("green")
+                scale([1.75,8,1])
+                translate([0,0,-5])
+                sphere(d=30, $fn=50);
+                
             }
             
             translate([0,0,-17/2])
             recoil_pad_outline(thickness=17/2);
         }
+
+        // mount holes
+        if(1){
+            translate([0,0,17-14])
+            recoil_pad_screws(d=9.5, length=17);
+            
+            recoil_pad_screws();
+        }
         
-        translate([0,0,17-14])
-        recoil_pad_screws(d=9.5, length=17);
-        
-        recoil_pad_screws();
-        
-        diamond_grid();
-    }
-    
+        diamond_grid(total_width=120);
+    }//end diff
     
 }
 
@@ -100,30 +109,30 @@ module diamond_pillar(length=100, width=12, height=8){
 
 }
 
-module diamond_grid(width=13, height=8){
+module diamond_grid(width=13, height=8, total_width=84){
     
     intersection(){
         color("blue")
         //translate([0,0,10])
-        cube([50,84,12], center=true);
+        cube([50,total_width,12], center=true);
         
         union(){
-            for(i=[-3:2])
+            for(i=[-4:3])
             translate([0,(12+5)*i+8.5,6])
             diamond_pillar(width=width, height=height);
             
-            for(i=[-2:2])
+            for(i=[-3:3])
             translate([0,(12+5)*i,0])
             diamond_pillar(width=width, height=height);
             
-            for(i=[-3:2])
+            for(i=[-4:3])
             translate([0,(12+5)*i+8.5,-6])
             diamond_pillar(width=width, height=height);
         }
     }
 }
 
-if(1)
+if(0)
 color("green")
 recoil_pad_base();
 
@@ -131,7 +140,7 @@ if(0)
 translate([0,0,-10])
 recoil_pad_outline();
 
-if(0)
+if(1)
 recoil_pad_cushion();
 
 // thickness gauge
