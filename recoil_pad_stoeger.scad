@@ -52,7 +52,7 @@ module recoil_pad_base(){
     }//end diff
 }
 
-module recoil_pad_cushion(){
+module recoil_pad_cushion2(){
     s1 = 0.9;
     r = 2;
     //minkowski(){
@@ -98,6 +98,32 @@ module recoil_pad_cushion(){
     
 }
 
+module recoil_pad_cushion3(thickness=34, width=14){
+    /*
+    infill=5%
+    shell=0.8
+    */
+    s1 = 0.9;
+    r = 2;
+    
+    difference(){
+        translate([0,0,-thickness/2])
+        recoil_pad_outline(thickness=thickness);
+
+        // mount holes
+        if(1){
+            if(1)
+            //translate([-100,0,0])
+            recoil_pad_screws(d=9.5, length=thickness*2);
+        }
+        
+        diamond_grid(total_width=120, width=width, height=9, layers=6, grid_height=31);
+//        diamond_grid(total_width=120, width=15, height=9, layers=6, grid_height=31);
+//        diamond_grid(total_width=120, width=13, height=8, layers=6, grid_height=31);
+    }//end diff
+    
+}
+
 module diamond_pillar(length=100, width=12, height=8){
     
     color("red")
@@ -109,24 +135,17 @@ module diamond_pillar(length=100, width=12, height=8){
 
 }
 
-module diamond_grid(width=13, height=8, total_width=84){
+module diamond_grid(width=13, height=8, total_width=84, layers=3, grid_height=12){
     
     intersection(){
         color("blue")
-        //translate([0,0,10])
-        cube([50,total_width,12], center=true);
+        cube([50,total_width,grid_height], center=true);
         
         union(){
-            for(i=[-4:3])
-            translate([0,(12+5)*i+8.5,6])
-            diamond_pillar(width=width, height=height);
             
-            for(i=[-3:3])
-            translate([0,(12+5)*i,0])
-            diamond_pillar(width=width, height=height);
-            
-            for(i=[-4:3])
-            translate([0,(12+5)*i+8.5,-6])
+            for(j=[-floor(layers/2):1:floor(layers/2)])
+            for(i=[-10:10])
+            translate([0,(12+5)*i+8.5*j,j*6])
             diamond_pillar(width=width, height=height);
         }
     }
@@ -140,8 +159,11 @@ if(0)
 translate([0,0,-10])
 recoil_pad_outline();
 
-if(1)
+if(0)
 recoil_pad_cushion();
+
+if(1)
+recoil_pad_cushion3();
 
 // thickness gauge
 if(0)
