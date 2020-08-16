@@ -1,0 +1,3 @@
+"filename","material","wall_thickness","color","infill_percent","platform_adhesion","support_type","obsolete"
+"recoil_pad_stoeger_base.stl","PLA",1.2,"black","15%",,,0
+"recoil_pad_stoeger_cushion3_15.stl","NinjaFlex",0.8,"black","5%",,,0

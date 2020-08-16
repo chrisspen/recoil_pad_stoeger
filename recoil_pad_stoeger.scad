@@ -111,10 +111,13 @@ module recoil_pad_cushion3(thickness=34, width=14){
         recoil_pad_outline(thickness=thickness);
 
         // mount holes
+        //translate([-100,0,0])
         if(1){
             if(1)
-            //translate([-100,0,0])
+            translate([0,0,18.5])
             recoil_pad_screws(d=9.5, length=thickness*2);
+            
+            recoil_pad_screws(d=6, length=thickness*2);
         }
         
         diamond_grid(total_width=120, width=width, height=9, layers=6, grid_height=31);
